@@ -194,6 +194,16 @@ const HomePage = ({ setCurrentPage }) => (
         </div>
       </div>
     </section>
+
+    {/* Infografis Literasi Keuangan Gen Z */}
+    <section className="w-full max-w-4xl mt-12 bg-white bg-opacity-90 p-8 rounded-xl shadow-md border border-gray-200">
+      <h2 className="text-3xl font-bold text-blue-700 mb-6">Infografis Literasi Keuangan Gen Z</h2>
+      <p className="text-gray-700 mb-8">
+        Berikut adalah hasil survei terbaru mengenai tingkat literasi keuangan di kalangan Gen Z Indonesia.
+      </p>
+      {/* Menggunakan jalur relatif ke folder public */}
+      <img src="/genz-literasi.png" alt="Infografis Literasi Keuangan Gen Z" className="max-w-full h-auto rounded-lg shadow-lg" />
+    </section>
   </div>
 );
 
@@ -541,7 +551,7 @@ function App() {
       players: [
         { name: 'Player 1', position: 0, money: 1500 },
         { name: 'Player 2', position: 0, money: 1500 },
-      ],
+        ],
       currentPlayer: 0,
       message: 'Game dimulai! Giliran Player 1.',
       canBuy: false,
