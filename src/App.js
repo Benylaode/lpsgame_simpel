@@ -152,18 +152,16 @@ const HomePage = ({ setCurrentPage }) => {
   };
 
   useEffect(() => {
-    // Memuat Chart.js secara dinamis jika belum ada
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
-    script.async = true;
-    script.onload = () => {
+    // Pastikan Chart.js sudah dimuat secara global sebelum mencoba menggunakannya
+    // Script Chart.js harus dimuat di public/index.html
+    if (window.Chart) {
       const ctx = document.getElementById('literasiChart');
       if (ctx) {
         // Hancurkan instance chart yang ada sebelum membuat yang baru
         if (window.literasiChartInstance) {
           window.literasiChartInstance.destroy();
         }
-        window.literasiChartInstance = new Chart(ctx.getContext('2d'), {
+        window.literasiChartInstance = new window.Chart(ctx.getContext('2d'), { // Menggunakan window.Chart
           type: 'bar',
           data: {
             labels: literasiData.labels,
@@ -208,15 +206,12 @@ const HomePage = ({ setCurrentPage }) => {
           }
         });
       }
-    };
-    document.body.appendChild(script);
-
+    }
     // Cleanup saat komponen unmount
     return () => {
       if (window.literasiChartInstance) {
         window.literasiChartInstance.destroy();
       }
-      document.body.removeChild(script);
     };
   }, []); // Hanya jalankan sekali saat mount
 
@@ -801,14 +796,14 @@ function App() {
       <nav className="bg-[#1e3a8a] py-4 shadow-lg sticky top-0 z-[9999] backdrop-filter backdrop-blur-md bg-opacity-70">
         <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
           <div className="text-white text-3xl font-extrabold tracking-wider select-none">FINPLAYZ Edu Game</div>
-          {/* Mengurangi spasi antar item navbar dari space-x-7 menjadi space-x-5 */}
-          <ul className="flex space-x-5">
+          {/* Mengurangi spasi antar item navbar dari space-x-5 menjadi space-x-2 */}
+          <ul className="flex space-x-2">
             <li>
               <a
                 href="#home"
                 onClick={() => handleSetCurrentPage('home')}
                 className={`text-[#dbeafe] text-lg font-semibold px-4 py-2 rounded-md transition duration-300 ease-in-out
-                  ${currentPage === 'home' ? 'text-white underline' : 'hover:text-white'}`}
+                  ${currentPage === 'home' ? 'text-white underline' : 'hover:text-white hover:font-bold'}`}
               >
                 Home
               </a>
@@ -818,7 +813,7 @@ function App() {
                 href="#game"
                 onClick={() => handleSetCurrentPage('game')}
                 className={`text-[#dbeafe] text-lg font-semibold px-4 py-2 rounded-md transition duration-300 ease-in-out
-                  ${currentPage === 'game' ? 'text-white underline' : 'hover:text-white'}`}
+                  ${currentPage === 'game' ? 'text-white underline' : 'hover:text-white hover:font-bold'}`}
               >
                 Game Edukatif
               </a>
@@ -828,7 +823,7 @@ function App() {
                 href="#materi"
                 onClick={() => handleSetCurrentPage('materi')}
                 className={`text-[#dbeafe] text-lg font-semibold px-4 py-2 rounded-md transition duration-300 ease-in-out
-                  ${currentPage === 'materi' ? 'text-white underline' : 'hover:text-white'}`}
+                  ${currentPage === 'materi' ? 'text-white underline' : 'hover:text-white hover:font-bold'}`}
               >
                 Materi
               </a>
@@ -838,7 +833,7 @@ function App() {
                 href="#quiz"
                 onClick={() => handleSetCurrentPage('quiz')}
                 className={`text-[#dbeafe] text-lg font-semibold px-4 py-2 rounded-md transition duration-300 ease-in-out
-                  ${currentPage === 'quiz' ? 'text-white underline' : 'hover:text-white'}`}
+                  ${currentPage === 'quiz' ? 'text-white underline' : 'hover:text-white hover:font-bold'}`}
               >
                 Kuis
               </a>
@@ -848,7 +843,7 @@ function App() {
                 href="#about"
                 onClick={() => handleSetCurrentPage('about')}
                 className={`text-[#dbeafe] text-lg font-semibold px-4 py-2 rounded-md transition duration-300 ease-in-out
-                  ${currentPage === 'about' ? 'text-white underline' : 'hover:text-white'}`}
+                  ${currentPage === 'about' ? 'text-white underline' : 'hover:text-white hover:font-bold'}`}
               >
                 Tentang
               </a>
