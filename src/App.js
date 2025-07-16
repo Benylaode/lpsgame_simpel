@@ -144,87 +144,167 @@ function gameReducer(state, action) {
 }
 
 // Komponen Halaman Home
-const HomePage = ({ setCurrentPage }) => (
-  <div className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)] text-center p-4">
-    <h1 className="text-5xl font-extrabold text-blue-800 mb-4 drop-shadow-lg">
-      Tingkatkan Literasi Keuanganmu Bersama FINPLAYZ Edu Game
-    </h1>
-    <h2 className="text-3xl font-semibold text-yellow-600 mb-6">Main Asik, Finansial Cerdas!</h2>
-    <p className="text-lg text-gray-700 max-w-2xl mb-8">
-      Pelajari dan uji pengetahuanmu tentang peran Lembaga Penjamin Simpanan (LPS) dan konsep keuangan lainnya.
-    </p>
-    <button
-      onClick={() => setCurrentPage('quiz')}
-      className="px-8 py-4 bg-yellow-500 text-blue-800 font-bold rounded-full shadow-lg hover:bg-yellow-600 transition duration-300 ease-in-out transform hover:scale-105 text-xl"
-    >
-      Mulai Kuis
-    </button>
+const HomePage = ({ setCurrentPage }) => {
+  // Data statistik literasi keuangan dari index.php
+  const literasiData = {
+    labels: ['Tabungan', 'Investasi', 'Asuransi', 'Pinjaman', 'Manajemen Uang'],
+    data: [55, 42, 33, 25, 60],
+  };
 
-    <section className="w-full max-w-4xl mt-12 bg-white bg-opacity-90 p-8 rounded-xl shadow-md border border-gray-200">
-      <h2 className="text-3xl font-bold text-blue-700 mb-6">📊 Statistik Literasi Keuangan Gen Z Indonesia</h2>
-      <p className="text-gray-700 mb-8">
-        Rendahnya tingkat literasi keuangan menunjukkan urgensi edukasi yang lebih intensif dan menarik.
-      </p>
-      {/* Placeholder for chart - In a real app, you'd integrate Chart.js here */}
-      <div className="bg-gray-100 h-64 flex items-center justify-center rounded-lg text-gray-500">
-        [Grafik Literasi Keuangan]
+  useEffect(() => {
+    // Memuat Chart.js secara dinamis jika belum ada
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+    script.async = true;
+    script.onload = () => {
+      const ctx = document.getElementById('literasiChart');
+      if (ctx) {
+        // Hancurkan instance chart yang ada sebelum membuat yang baru
+        if (window.literasiChartInstance) {
+          window.literasiChartInstance.destroy();
+        }
+        window.literasiChartInstance = new Chart(ctx.getContext('2d'), {
+          type: 'bar',
+          data: {
+            labels: literasiData.labels,
+            datasets: [{
+              label: 'Persentase Literasi (%)',
+              data: literasiData.data,
+              backgroundColor: 'rgba(54, 162, 235, 0.6)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false, // Penting untuk responsivitas
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100,
+                grid: {
+                  color: 'rgba(255, 255, 255, 0.2)' // Warna grid untuk kontras dengan background gelap
+                },
+                ticks: {
+                  color: '#fff' // Warna teks ticks
+                }
+              },
+              x: {
+                grid: {
+                  color: 'rgba(255, 255, 255, 0.2)'
+                },
+                ticks: {
+                  color: '#fff'
+                }
+              }
+            },
+            plugins: {
+              legend: {
+                labels: {
+                  color: '#fff' // Warna label legenda
+                }
+              }
+            }
+          }
+        });
+      }
+    };
+    document.body.appendChild(script);
+
+    // Cleanup saat komponen unmount
+    return () => {
+      if (window.literasiChartInstance) {
+        window.literasiChartInstance.destroy();
+      }
+      document.body.removeChild(script);
+    };
+  }, []); // Hanya jalankan sekali saat mount
+
+  return (
+    <div className="container mx-auto px-6 py-8">
+      <div className="hero text-center py-24 px-5 bg-gradient-to-br from-[#1e3a8a] to-[#1e3a8a] rounded-xl shadow-2xl mb-12 relative overflow-hidden">
+        <h1 className="text-5xl md:text-6xl font-extrabold mb-4 tracking-wide text-white drop-shadow-lg">
+          Tingkatkan Literasi Keuanganmu Bersama FINPLAYZ Edu Game
+        </h1>
+        <h2 className="text-3xl md:text-4xl font-bold text-yellow-400 mb-6 drop-shadow-md">Main Asik, Finansial Cerdas!</h2>
+        <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-10 leading-relaxed drop-shadow-sm">
+          Pelajari dan uji pengetahuanmu tentang peran Lembaga Penjamin Simpanan (LPS) dan konsep keuangan lainnya.
+        </p>
+        <button
+          onClick={() => setCurrentPage('quiz')}
+          className="btn-hero bg-yellow-400 text-blue-900 px-10 py-4 font-bold rounded-full text-xl shadow-lg hover:bg-yellow-500 transition duration-300 ease-in-out transform hover:scale-105"
+        >
+          Mulai Kuis
+        </button>
       </div>
-    </section>
 
-    <section className="w-full max-w-4xl mt-12 bg-white bg-opacity-90 p-8 rounded-xl shadow-md border border-gray-200">
-      <h2 className="text-3xl font-bold text-blue-700 mb-6">Fitur Unggulan</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div className="flex flex-col items-center p-6 bg-gray-50 rounded-lg shadow-md">
-          <img src="https://img.icons8.com/ios/50/open-book--v1.png" alt="Materi Edukasi" className="mb-4 w-16 h-16" />
-          <h3 className="text-xl font-semibold text-blue-700 mb-2">Materi Edukasi Keuangan</h3>
-          <p className="text-gray-600 text-sm mb-4">Pelajari topik-topik penting seperti tabungan, investasi, pinjaman, dan pengelolaan anggaran.</p>
-          <button onClick={() => setCurrentPage('materi')} className="px-4 py-2 bg-blue-500 text-white rounded-full text-sm hover:bg-blue-600">Baca Materi</button>
+      <section className="statistik-literasi bg-blue-900 bg-opacity-90 p-8 rounded-xl shadow-xl mb-12 border border-blue-700">
+        <h2 className="text-3xl font-bold text-yellow-400 mb-6 text-center">📊 Statistik Literasi Keuangan Gen Z Indonesia</h2>
+        <p className="text-gray-200 mb-8 text-center max-w-2xl mx-auto">
+          Rendahnya tingkat literasi keuangan menunjukkan urgensi edukasi yang lebih intensif dan menarik.
+        </p>
+        <div className="statistik-chart-container h-80 w-full max-w-2xl mx-auto bg-blue-800 p-4 rounded-lg shadow-inner">
+          <canvas id="literasiChart"></canvas>
         </div>
-        <div className="flex flex-col items-center p-6 bg-gray-50 rounded-lg shadow-md">
-          <img src="https://img.icons8.com/ios/50/quiz.png" alt="Kuis Interaktif" className="mb-4 w-16 h-16" />
-          <h3 className="text-xl font-semibold text-blue-700 mb-2">Kuis Interaktif</h3>
-          <p className="text-gray-600 text-sm mb-4">Uji pemahamanmu melalui kuis singkat dengan cara yang seru dan menantang.</p>
-          <button onClick={() => setCurrentPage('quiz')} className="px-4 py-2 bg-blue-500 text-white rounded-full text-sm hover:bg-blue-600">Mulai Kuis</button>
-        </div>
-        <div className="flex flex-col items-center p-6 bg-gray-50 rounded-lg shadow-md">
-          <img src="https://img.icons8.com/ios/50/trophy.png" alt="Skor & Feedback" className="mb-4 w-16 h-16" />
-          <h3 className="text-xl font-semibold text-blue-700 mb-2">Skor & Feedback</h3>
-          <p className="text-gray-600 text-sm mb-4">Dapatkan skor langsung setelah kuis dan lihat feedback untuk meningkatkan pemahamanmu.</p>
-          <button onClick={() => setCurrentPage('score')} className="px-4 py-2 bg-blue-500 text-white rounded-full text-sm hover:bg-blue-600">Lihat Skor</button>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    {/* Infografis Literasi Keuangan Gen Z */}
-    <section className="w-full max-w-4xl mt-12 bg-white bg-opacity-90 p-8 rounded-xl shadow-md border border-gray-200">
-      <h2 className="text-3xl font-bold text-blue-700 mb-6">Infografis Literasi Keuangan Gen Z</h2>
-      <p className="text-gray-700 mb-8">
-        Berikut adalah hasil survei terbaru mengenai tingkat literasi keuangan di kalangan Gen Z Indonesia.
-      </p>
-      {/* Menggunakan jalur relatif ke folder public */}
-      <img src="/genz-literasi.png" alt="Infografis Literasi Keuangan Gen Z" className="max-w-full h-auto rounded-lg shadow-lg" />
-    </section>
-  </div>
-);
+      {/* Infografis Literasi Keuangan Gen Z */}
+      <section className="infografis bg-blue-900 bg-opacity-90 p-8 rounded-xl shadow-xl mb-12 border border-blue-700 text-center">
+        <h2 className="text-3xl font-bold text-yellow-400 mb-6">Infografis Literasi Keuangan Gen Z</h2>
+        <p className="text-gray-200 mb-8 max-w-2xl mx-auto">
+          Berikut adalah hasil survei terbaru mengenai tingkat literasi keuangan di kalangan Gen Z Indonesia.
+        </p>
+        <img
+          src="/genz-literasi.png" // Menggunakan jalur relatif ke folder public
+          alt="Infografis Literasi Keuangan Gen Z"
+          className="max-w-full h-auto rounded-lg shadow-xl mx-auto transform transition-transform duration-300 hover:scale-103"
+        />
+      </section>
+
+      <section className="features grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
+        <div className="feature-card bg-white p-8 rounded-xl shadow-lg border border-gray-200 text-center transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+          <img src="https://img.icons8.com/ios/50/open-book--v1.png" alt="Materi Edukasi" className="mb-6 w-20 h-20 mx-auto" />
+          <h3 className="text-2xl font-bold text-blue-800 mb-3">Materi Edukasi Keuangan</h3>
+          <p className="text-gray-700 text-lg mb-6 leading-relaxed">Pelajari topik-topik penting seperti tabungan, investasi, pinjaman, dan pengelolaan anggaran.</p>
+          <button onClick={() => setCurrentPage('materi')} className="btn-materi bg-blue-600 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-md hover:bg-blue-700">Baca Materi</button>
+        </div>
+        <div className="feature-card bg-white p-8 rounded-xl shadow-lg border border-gray-200 text-center transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+          <img src="https://img.icons8.com/ios/50/quiz.png" alt="Kuis Interaktif" className="mb-6 w-20 h-20 mx-auto" />
+          <h3 className="text-2xl font-bold text-blue-800 mb-3">Kuis Interaktif</h3>
+          <p className="text-gray-700 text-lg mb-6 leading-relaxed">Uji pemahamanmu melalui kuis singkat dengan cara yang seru dan menantang.</p>
+          <button onClick={() => setCurrentPage('quiz')} className="btn-materi bg-blue-600 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-md hover:bg-blue-700">Mulai Kuis</button>
+        </div>
+        <div className="feature-card bg-white p-8 rounded-xl shadow-lg border border-gray-200 text-center transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+          <img src="https://img.icons8.com/ios/50/trophy.png" alt="Skor & Feedback" className="mb-6 w-20 h-20 mx-auto" />
+          <h3 className="text-2xl font-bold text-blue-800 mb-3">Skor & Feedback</h3>
+          <p className="text-gray-700 text-lg mb-6 leading-relaxed">Dapatkan skor langsung setelah kuis dan lihat feedback untuk meningkatkan pemahamanmu.</p>
+          <button onClick={() => setCurrentPage('score')} className="btn-materi bg-blue-600 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-md hover:bg-blue-700">Lihat Skor</button>
+        </div>
+      </section>
+    </div>
+  );
+};
 
 // Komponen Halaman Materi
 const MateriPage = ({ setCurrentPage }) => (
-  <div className="flex flex-col items-center p-8 bg-white bg-opacity-90 rounded-xl shadow-md max-w-3xl mx-auto my-8">
-    <h1 className="text-3xl font-bold text-blue-700 mb-6">📘 Materi Edukasi Keuangan</h1>
-    <p className="text-gray-700 mb-4 text-center">Berikut ini adalah materi interaktif dalam bentuk PDF. Gunakan scrollbar atau kontrol di bawah untuk membaca lebih lanjut:</p>
-    <div className="w-full h-[600px] border-2 border-gray-300 rounded-lg overflow-hidden shadow-inner mb-6">
-      {/* Menggunakan jalur relatif ke folder public */}
-      <iframe src="/files/materi keuangan.pdf" className="w-full h-full border-none" title="Materi Keuangan PDF"></iframe>
+  <div className="container mx-auto px-6 py-8">
+    <div className="flex flex-col items-center p-8 bg-white bg-opacity-90 rounded-xl shadow-xl max-w-4xl mx-auto my-8 border border-gray-200 text-gray-800">
+      <h1 className="text-3xl font-bold text-blue-700 mb-6 text-center">📘 Materi Edukasi Keuangan</h1>
+      <p className="text-gray-700 mb-4 text-center">Berikut ini adalah materi interaktif dalam bentuk PDF. Gunakan scrollbar atau kontrol di bawah untuk membaca lebih lanjut:</p>
+      <div className="w-full h-[600px] border-2 border-gray-300 rounded-lg overflow-hidden shadow-inner mb-6">
+        {/* Menggunakan jalur relatif ke folder public */}
+        <iframe src="/files/materi keuangan.pdf" className="w-full h-full border-none" title="Materi Keuangan PDF"></iframe>
+      </div>
+      <a href="/files/materi keuangan.pdf" download className="px-6 py-3 bg-green-500 text-white font-bold rounded-full shadow-lg hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105 mb-6">
+        ⬇️ Unduh Materi PDF
+      </a>
+      <button
+        onClick={() => setCurrentPage('home')}
+        className="px-6 py-3 bg-purple-600 text-white font-bold rounded-full shadow-lg hover:bg-purple-700 transition duration-300 ease-in-out transform hover:scale-105"
+      >
+        🏠 Kembali ke Beranda
+      </button>
     </div>
-    <a href="/files/materi keuangan.pdf" download className="px-6 py-3 bg-green-500 text-white font-bold rounded-full shadow-lg hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105 mb-6">
-      ⬇️ Unduh Materi PDF
-    </a>
-    <button
-      onClick={() => setCurrentPage('home')}
-      className="px-6 py-3 bg-purple-600 text-white font-bold rounded-full shadow-lg hover:bg-purple-700 transition duration-300 ease-in-out transform hover:scale-105"
-    >
-      🏠 Kembali ke Beranda
-    </button>
   </div>
 );
 
@@ -721,15 +801,58 @@ function App() {
       <nav className="bg-[#1e3a8a] py-4 shadow-lg sticky top-0 z-[9999] backdrop-filter backdrop-blur-md bg-opacity-70">
         <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
           <div className="text-white text-3xl font-extrabold tracking-wider select-none">FINPLAYZ Edu Game</div>
-          <ul className="flex space-x-7">
-            <li><button onClick={() => handleSetCurrentPage('home')} className={`text-[#dbeafe] hover:bg-[#3b82f6] hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold text-lg ${currentPage === 'home' ? 'bg-[#3b82f6] text-white shadow-md' : ''}`}>Home</button></li>
-            <li><button onClick={() => handleSetCurrentPage('game')} className={`text-[#dbeafe] hover:bg-[#3b82f6] hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold text-lg ${currentPage === 'game' ? 'bg-[#3b82f6] text-white shadow-md' : ''}`}>Game Edukatif</button></li>
-            <li><button onClick={() => handleSetCurrentPage('materi')} className={`text-[#dbeafe] hover:bg-[#3b82f6] hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold text-lg ${currentPage === 'materi' ? 'bg-[#3b82f6] text-white shadow-md' : ''}`}>Materi</button></li>
-            <li><button onClick={() => handleSetCurrentPage('quiz')} className={`text-[#dbeafe] hover:bg-[#3b82f6] hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold text-lg ${currentPage === 'quiz' ? 'bg-[#3b82f6] text-white shadow-md' : ''}`}>Kuis</button></li>
-            <li><button onClick={() => handleSetCurrentPage('score')} className={`text-[#dbeafe] hover:bg-[#3b82f6] hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold text-lg ${currentPage === 'score' ? 'bg-[#3b82f6] text-white shadow-md' : ''}`}>Skor</button></li>
-            <li><button onClick={() => handleSetCurrentPage('about')} className={`text-[#dbeafe] hover:bg-[#3b82f6] hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold text-lg ${currentPage === 'about' ? 'bg-[#3b82f6] text-white shadow-md' : ''}`}>Tentang</button></li>
-            <li><button onClick={() => handleSetCurrentPage('admin')} className={`text-[#dbeafe] hover:bg-[#3b82f6] hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold text-lg ${currentPage === 'admin' ? 'bg-[#3b82f6] text-white shadow-md' : ''}`}>Admin</button></li>
-            <li><button onClick={() => handleSetCurrentPage('user')} className={`text-[#dbeafe] hover:bg-[#3b82f6] hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold text-lg ${currentPage === 'user' ? 'bg-[#3b82f6] text-white shadow-md' : ''}`}>User</button></li>
+          {/* Mengurangi spasi antar item navbar dari space-x-7 menjadi space-x-5 */}
+          <ul className="flex space-x-5">
+            <li>
+              <a
+                href="#home"
+                onClick={() => handleSetCurrentPage('home')}
+                className={`text-[#dbeafe] text-lg font-semibold px-4 py-2 rounded-md transition duration-300 ease-in-out
+                  ${currentPage === 'home' ? 'text-white underline' : 'hover:text-white'}`}
+              >
+                Home
+              </a>
+            </li>
+            <li>
+              <a
+                href="#game"
+                onClick={() => handleSetCurrentPage('game')}
+                className={`text-[#dbeafe] text-lg font-semibold px-4 py-2 rounded-md transition duration-300 ease-in-out
+                  ${currentPage === 'game' ? 'text-white underline' : 'hover:text-white'}`}
+              >
+                Game Edukatif
+              </a>
+            </li>
+            <li>
+              <a
+                href="#materi"
+                onClick={() => handleSetCurrentPage('materi')}
+                className={`text-[#dbeafe] text-lg font-semibold px-4 py-2 rounded-md transition duration-300 ease-in-out
+                  ${currentPage === 'materi' ? 'text-white underline' : 'hover:text-white'}`}
+              >
+                Materi
+              </a>
+            </li>
+            <li>
+              <a
+                href="#quiz"
+                onClick={() => handleSetCurrentPage('quiz')}
+                className={`text-[#dbeafe] text-lg font-semibold px-4 py-2 rounded-md transition duration-300 ease-in-out
+                  ${currentPage === 'quiz' ? 'text-white underline' : 'hover:text-white'}`}
+              >
+                Kuis
+              </a>
+            </li>
+            <li>
+              <a
+                href="#about"
+                onClick={() => handleSetCurrentPage('about')}
+                className={`text-[#dbeafe] text-lg font-semibold px-4 py-2 rounded-md transition duration-300 ease-in-out
+                  ${currentPage === 'about' ? 'text-white underline' : 'hover:text-white'}`}
+              >
+                Tentang
+              </a>
+            </li>
           </ul>
         </div>
       </nav>
