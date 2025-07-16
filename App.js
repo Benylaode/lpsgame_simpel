@@ -701,14 +701,15 @@ function App() {
   return (
     // Mengaplikasikan background-image dari style.css
     <div
-      className="min-h-screen text-gray-800 font-inter relative overflow-x-hidden"
+      className="min-h-screen font-poppins text-white relative overflow-x-hidden"
       style={{
+        backgroundColor: '#1e293b', // Warna solid dark blue dari style.css
         backgroundImage: `url('/image/bg.jpg')`, // Menggunakan jalur relatif ke folder public
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundAttachment: 'fixed',
-        color: '#fff', // Warna teks default dari body di style.css
+        lineHeight: '1.6',
       }}
     >
       <script src="https://cdn.tailwindcss.com"></script>
@@ -717,18 +718,18 @@ function App() {
       <div className="absolute w-[400px] h-[400px] rounded-full bg-purple-400 bg-opacity-30 z-0 animate-float2" style={{ bottom: '-150px', right: '-150px', background: 'radial-gradient(circle, rgba(108, 92, 231, 0.3), transparent 70%)' }}></div>
 
       {/* Navbar */}
-      <nav className="bg-blue-900 p-4 shadow-lg sticky top-0 z-50 backdrop-filter backdrop-blur-md bg-opacity-70">
-        <div className="container mx-auto flex justify-between items-center">
-          <div className="text-white text-2xl font-bold tracking-wider select-none">FINPLAYZ Edu Game</div>
-          <ul className="flex space-x-6">
-            <li><button onClick={() => handleSetCurrentPage('home')} className={`text-blue-100 hover:bg-blue-500 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold ${currentPage === 'home' ? 'bg-blue-600 text-white shadow-md' : ''}`}>Home</button></li>
-            <li><button onClick={() => handleSetCurrentPage('game')} className={`text-blue-100 hover:bg-blue-500 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold ${currentPage === 'game' ? 'bg-blue-600 text-white shadow-md' : ''}`}>Game Edukatif</button></li>
-            <li><button onClick={() => handleSetCurrentPage('materi')} className={`text-blue-100 hover:bg-blue-500 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold ${currentPage === 'materi' ? 'bg-blue-600 text-white shadow-md' : ''}`}>Materi</button></li>
-            <li><button onClick={() => handleSetCurrentPage('quiz')} className={`text-blue-100 hover:bg-blue-500 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold ${currentPage === 'quiz' ? 'bg-blue-600 text-white shadow-md' : ''}`}>Kuis</button></li>
-            <li><button onClick={() => handleSetCurrentPage('score')} className={`text-blue-100 hover:bg-blue-500 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold ${currentPage === 'score' ? 'bg-blue-600 text-white shadow-md' : ''}`}>Skor</button></li>
-            <li><button onClick={() => handleSetCurrentPage('about')} className={`text-blue-100 hover:bg-blue-500 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold ${currentPage === 'about' ? 'bg-blue-600 text-white shadow-md' : ''}`}>Tentang</button></li>
-            <li><button onClick={() => handleSetCurrentPage('admin')} className={`text-blue-100 hover:bg-blue-500 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold ${currentPage === 'admin' ? 'bg-blue-600 text-white shadow-md' : ''}`}>Admin</button></li>
-            <li><button onClick={() => handleSetCurrentPage('user')} className={`text-blue-100 hover:bg-blue-500 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold ${currentPage === 'user' ? 'bg-blue-600 text-white shadow-md' : ''}`}>User</button></li>
+      <nav className="bg-[#1e3a8a] py-4 shadow-lg sticky top-0 z-[9999] backdrop-filter backdrop-blur-md bg-opacity-70">
+        <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
+          <div className="text-white text-3xl font-extrabold tracking-wider select-none">FINPLAYZ Edu Game</div>
+          <ul className="flex space-x-7">
+            <li><button onClick={() => handleSetCurrentPage('home')} className={`text-[#dbeafe] hover:bg-[#3b82f6] hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold text-lg ${currentPage === 'home' ? 'bg-[#3b82f6] text-white shadow-md' : ''}`}>Home</button></li>
+            <li><button onClick={() => handleSetCurrentPage('game')} className={`text-[#dbeafe] hover:bg-[#3b82f6] hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold text-lg ${currentPage === 'game' ? 'bg-[#3b82f6] text-white shadow-md' : ''}`}>Game Edukatif</button></li>
+            <li><button onClick={() => handleSetCurrentPage('materi')} className={`text-[#dbeafe] hover:bg-[#3b82f6] hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold text-lg ${currentPage === 'materi' ? 'bg-[#3b82f6] text-white shadow-md' : ''}`}>Materi</button></li>
+            <li><button onClick={() => handleSetCurrentPage('quiz')} className={`text-[#dbeafe] hover:bg-[#3b82f6] hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold text-lg ${currentPage === 'quiz' ? 'bg-[#3b82f6] text-white shadow-md' : ''}`}>Kuis</button></li>
+            <li><button onClick={() => handleSetCurrentPage('score')} className={`text-[#dbeafe] hover:bg-[#3b82f6] hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold text-lg ${currentPage === 'score' ? 'bg-[#3b82f6] text-white shadow-md' : ''}`}>Skor</button></li>
+            <li><button onClick={() => handleSetCurrentPage('about')} className={`text-[#dbeafe] hover:bg-[#3b82f6] hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold text-lg ${currentPage === 'about' ? 'bg-[#3b82f6] text-white shadow-md' : ''}`}>Tentang</button></li>
+            <li><button onClick={() => handleSetCurrentPage('admin')} className={`text-[#dbeafe] hover:bg-[#3b82f6] hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold text-lg ${currentPage === 'admin' ? 'bg-[#3b82f6] text-white shadow-md' : ''}`}>Admin</button></li>
+            <li><button onClick={() => handleSetCurrentPage('user')} className={`text-[#dbeafe] hover:bg-[#3b82f6] hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-md font-semibold text-lg ${currentPage === 'user' ? 'bg-[#3b82f6] text-white shadow-md' : ''}`}>User</button></li>
           </ul>
         </div>
       </nav>
@@ -754,6 +755,162 @@ function App() {
         }
         .animate-float2 {
             animation: float2 12s infinite ease-in-out;
+        }
+
+        /* General Button Styles from style.css */
+        button {
+            padding: 12px 26px;
+            margin: 10px 10px 10px 0;
+            border: none;
+            border-radius: 14px;
+            background-color: #6c5ce7; /* Default button color */
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s ease;
+            box-shadow: 0 4px 14px rgba(108,92,231,0.6);
+            user-select: none;
+        }
+
+        button:hover {
+            background-color: #341f97;
+            transform: scale(1.07);
+            box-shadow: 0 6px 24px rgba(52,31,151,0.8);
+        }
+
+        /* Specific styles for game board cells */
+        .owner-p0 { background-color: #f1948a !important; }
+        .owner-p1 { background-color: #85c1e9 !important; }
+
+        /* Quiz specific styles */
+        .container-quiz {
+            background: rgba(30,58,138,0.9);
+            color: #fff;
+        }
+        .quiz-card {
+            background-color: #1e3a8a; /* Dark blue from style.css */
+        }
+        .quiz-card label {
+            background-color: rgba(255, 255, 255, 0.1);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .quiz-card label:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Result Page specific styles */
+        .container-result {
+            background: rgba(30,58,138,0.9);
+            color: #fff;
+        }
+        .score-circle {
+            background: #00cec9;
+            color: #000;
+        }
+        .result-msg.success { color: #00ff95; }
+        .result-msg.warning { color: #ffe066; }
+        .result-msg.error { color: #ff6b6b; }
+        .feedback {
+            background-color: #1e3a8a;
+        }
+        .feedback .correct { color: #00ff95; }
+        .feedback .incorrect { color: #ff6b6b; }
+
+        /* Hero Section specific styles */
+        .hero-content h1 {
+            font-size: 3.6rem;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.5);
+        }
+        .hero-content h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fbbf24;
+            text-shadow: 0 3px 6px rgba(0,0,0,0.4);
+        }
+        .hero-content p {
+            font-size: 1.25rem;
+            line-height: 1.5;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        }
+        .btn-hero {
+            background-color: #fbbf24;
+            color: #1e3a8a;
+            padding: 14px 36px;
+            font-weight: 700;
+            border-radius: 35px;
+            font-size: 1.25rem;
+            box-shadow: 0 6px 12px rgba(251, 191, 36, 0.6);
+        }
+        .btn-hero:hover {
+            background-color: #f59e0b;
+            box-shadow: 0 8px 18px rgba(245, 158, 11, 0.8);
+        }
+
+        /* Feature Card specific styles */
+        .feature-card {
+            background-color: white;
+            box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+            border-radius: 20px;
+            padding: 35px 30px;
+            color: #1e3a8a;
+        }
+        .feature-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 15px 38px rgba(0,0,0,0.18);
+        }
+        .feature-card h3 {
+            color: #1e3a8a;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .feature-card p {
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.5;
+        }
+        .btn-materi {
+            background-color: #3b82f6;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .btn-materi:hover {
+            background-color: #2563eb;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.7);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .nav-links {
+                flex-direction: column;
+                gap: 14px;
+                align-items: center;
+            }
+            .hero-content h1 {
+                font-size: 2.4rem;
+            }
+            .hero-content h2 {
+                font-size: 1.8rem;
+            }
+            .features {
+                flex-direction: column;
+                gap: 40px;
+            }
+            .feature-card {
+                max-width: 100%;
+            }
+            /* Assuming .item and #character-stats are not directly used in this single file App.js,
+               but if they were, their responsive styles would go here. */
         }
       `}</style>
     </div>
