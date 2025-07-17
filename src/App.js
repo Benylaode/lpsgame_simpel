@@ -775,9 +775,9 @@ function App() {
 
   return (
     // Mengaplikasikan background-image dari style.css
-    // Menghapus min-h-screen dari div terluar agar body yang mengontrol scrolling
+    // Div ini sekarang mengisi seluruh viewport dan tidak akan menggulir
     <div
-      className="font-poppins text-white relative overflow-x-hidden" // overflow-x-hidden tetap untuk mencegah scroll horizontal
+      className="w-full h-screen font-poppins text-white relative overflow-hidden" // Mengatur tinggi 100vh dan overflow:hidden
       style={{
         backgroundColor: '#1e293b', // Warna solid dark blue dari style.css
         backgroundImage: `url('/image/bg.jpg')`, // Menggunakan jalur relatif ke folder public
@@ -793,13 +793,10 @@ function App() {
       <div className="absolute w-[600px] h-[600px] rounded-full bg-cyan-400 bg-opacity-30 z-0 animate-float" style={{ top: '-150px', left: '-150px', background: 'radial-gradient(circle, rgba(0, 206, 201, 0.3), transparent 70%)' }}></div>
       <div className="absolute w-[400px] h-[400px] rounded-full bg-purple-400 bg-opacity-30 z-0 animate-float2" style={{ bottom: '-150px', right: '-150px', background: 'radial-gradient(circle, rgba(108, 92, 231, 0.3), transparent 70%)' }}></div>
 
-      {/* Navbar */}
-      {/* Mengubah position: sticky menjadi position: relative */}
-      {/* Menghapus top: 0 dan z-[9999] karena tidak relevan untuk relative */}
-      <nav className="bg-[#1e3a8a] py-4 shadow-lg relative backdrop-filter backdrop-blur-md bg-opacity-70">
+      {/* Navbar - Tetap sticky */}
+      <nav className="bg-[#1e3a8a] py-4 shadow-lg sticky top-0 z-[9999] backdrop-filter backdrop-blur-md bg-opacity-70">
         <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
           <div className="text-white text-3xl font-extrabold tracking-wider select-none">FINPLAYZ Edu Game</div>
-          {/* Mengurangi spasi antar item navbar dari space-x-5 menjadi space-x-2 */}
           <ul className="flex space-x-2">
             <li>
               <a
@@ -855,9 +852,10 @@ function App() {
         </div>
       </nav>
 
-      {/* Konten Halaman - Pembungkus utama untuk semua halaman */}
-      {/* Menghapus padding-top karena navbar tidak lagi sticky */}
-      <div className="relative z-10">
+      {/* Konten Halaman - Pembungkus utama untuk semua halaman yang akan digulir */}
+      {/* Mengatur padding-top agar konten dimulai di bawah navbar */}
+      {/* Konten halaman akan digulir oleh body HTML utama */}
+      <div className="relative z-10 pt-16"> {/* Menggunakan pt-16 (64px) untuk memberi ruang di bawah navbar */}
         {renderPage()}
       </div>
 
