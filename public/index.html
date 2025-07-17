@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- Mengubah viewport untuk selalu menampilkan tampilan desktop -->
     <meta name="viewport" content="width=1200px, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>FINPLAYZ Edu Game</title>
     <!-- Tailwind CSS CDN - Pastikan ini tetap ada jika Anda tidak menginstal Tailwind secara lokal -->
@@ -14,6 +15,11 @@
         /* Mengatur font Poppins secara global jika tidak diatur oleh Tailwind */
         body {
             font-family: 'Poppins', sans-serif;
+            /* Mencegah scrolling pada body dan membuatnya mengisi seluruh viewport */
+            overflow: hidden;
+            height: 100vh;
+            margin: 0; /* Pastikan tidak ada margin default pada body */
+            padding: 0; /* Pastikan tidak ada padding default pada body */
         }
     </style>
 </head>
