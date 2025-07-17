@@ -575,7 +575,7 @@ const AboutPage = ({ setCurrentPage }) => (
 
 // Komponen Halaman Admin
 const AdminPage = ({ setCurrentPage }) => (
-  <div className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)] p-4 text-center bg-white bg-opacity-90 rounded-xl shadow-md max-w-xl mx-auto my-8">
+  <div className="flex flex-col items-center justify-center p-4 text-center bg-white bg-opacity-90 rounded-xl shadow-md max-w-xl mx-auto my-8">
     <h1 className="text-3xl font-bold text-blue-700 mb-4">Halaman Admin</h1>
     <p className="text-gray-700 text-lg mb-6">Ini adalah halaman khusus untuk administrator.</p>
     <button
@@ -589,7 +589,7 @@ const AdminPage = ({ setCurrentPage }) => (
 
 // Komponen Halaman User
 const UserPage = ({ setCurrentPage }) => (
-  <div className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)] p-4 text-center bg-white bg-opacity-90 rounded-xl shadow-md max-w-xl mx-auto my-8">
+  <div className="flex flex-col items-center justify-center p-4 text-center bg-white bg-opacity-90 rounded-xl shadow-md max-w-xl mx-auto my-8">
     <h1 className="text-3xl font-bold text-blue-700 mb-4">Halaman Pengguna</h1>
     <p className="text-gray-700 text-lg mb-6">Ini adalah halaman khusus untuk pengguna.</p>
     <button
@@ -656,7 +656,7 @@ function App() {
         return <HomePage setCurrentPage={handleSetCurrentPage} />;
       case 'game':
         return (
-          <div className="min-h-[calc(100vh-80px)] bg-gradient-to-br from-blue-100 to-yellow-100 text-gray-800 p-4 font-inter">
+          <div className="bg-gradient-to-br from-blue-100 to-yellow-100 text-gray-800 p-4 font-inter">
             {/* Papan Permainan */}
             <div className="grid grid-cols-11 gap-0.5 mx-auto max-w-4xl shadow-xl bg-white p-2 rounded-xl border-2 border-gray-300">
               {positions.map((pos, index) => {
@@ -775,8 +775,9 @@ function App() {
 
   return (
     // Mengaplikasikan background-image dari style.css
+    // Menghapus min-h-screen dari div terluar agar body yang mengontrol scrolling
     <div
-      className="min-h-screen font-poppins text-white relative overflow-x-hidden"
+      className="font-poppins text-white relative overflow-x-hidden" // overflow-x-hidden tetap untuk mencegah scroll horizontal
       style={{
         backgroundColor: '#1e293b', // Warna solid dark blue dari style.css
         backgroundImage: `url('/image/bg.jpg')`, // Menggunakan jalur relatif ke folder public
@@ -793,7 +794,9 @@ function App() {
       <div className="absolute w-[400px] h-[400px] rounded-full bg-purple-400 bg-opacity-30 z-0 animate-float2" style={{ bottom: '-150px', right: '-150px', background: 'radial-gradient(circle, rgba(108, 92, 231, 0.3), transparent 70%)' }}></div>
 
       {/* Navbar */}
-      <nav className="bg-[#1e3a8a] py-4 shadow-lg sticky top-0 z-[9999] backdrop-filter backdrop-blur-md bg-opacity-70">
+      {/* Mengubah position: sticky menjadi position: relative */}
+      {/* Menghapus top: 0 dan z-[9999] karena tidak relevan untuk relative */}
+      <nav className="bg-[#1e3a8a] py-4 shadow-lg relative backdrop-filter backdrop-blur-md bg-opacity-70">
         <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
           <div className="text-white text-3xl font-extrabold tracking-wider select-none">FINPLAYZ Edu Game</div>
           {/* Mengurangi spasi antar item navbar dari space-x-5 menjadi space-x-2 */}
@@ -852,8 +855,11 @@ function App() {
         </div>
       </nav>
 
-      {/* Konten Halaman */}
-      {renderPage()}
+      {/* Konten Halaman - Pembungkus utama untuk semua halaman */}
+      {/* Menghapus padding-top karena navbar tidak lagi sticky */}
+      <div className="relative z-10">
+        {renderPage()}
+      </div>
 
       {/* Tailwind CSS keyframes for float animations */}
       <style>{`
