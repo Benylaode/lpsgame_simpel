@@ -777,7 +777,7 @@ function App() {
     // Mengaplikasikan background-image dari style.css
     // Div ini sekarang mengisi seluruh viewport dan tidak akan menggulir
     <div
-      className="w-full h-screen font-poppins text-white relative overflow-hidden" // Mengatur tinggi 100vh dan overflow:hidden
+      className="min-h-screen font-poppins text-white relative overflow-x-hidden" // Mengembalikan min-h-screen dan overflow-x-hidden
       style={{
         backgroundColor: '#1e293b', // Warna solid dark blue dari style.css
         backgroundImage: `url('/image/bg.jpg')`, // Menggunakan jalur relatif ke folder public
@@ -852,9 +852,8 @@ function App() {
         </div>
       </nav>
 
-      {/* Konten Halaman - Pembungkus utama untuk semua halaman yang akan digulir */}
-      {/* Mengatur padding-top agar konten dimulai di bawah navbar */}
-      {/* Konten halaman akan digulir oleh body HTML utama */}
+      {/* Konten Halaman - Pembungkus utama untuk semua halaman */}
+      {/* Menambahkan padding-top agar konten dimulai di bawah navbar */}
       <div className="relative z-10 pt-16"> {/* Menggunakan pt-16 (64px) untuk memberi ruang di bawah navbar */}
         {renderPage()}
       </div>
