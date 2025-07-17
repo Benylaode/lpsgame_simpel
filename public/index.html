@@ -15,9 +15,11 @@
         /* Mengatur font Poppins secara global jika tidak diatur oleh Tailwind */
         body {
             font-family: 'Poppins', sans-serif;
-            /* Mencegah scrolling pada body dan membuatnya mengisi seluruh viewport */
-            overflow: hidden;
-            height: 100vh;
+            /* Mengizinkan scrolling pada body */
+            overflow-y: auto; /* Mengizinkan scrolling vertikal */
+            overflow-x: hidden; /* Mencegah scrolling horizontal */
+            height: auto; /* Mengizinkan tinggi body menyesuaikan konten */
+            min-height: 100vh; /* Memastikan body setidaknya setinggi viewport */
             margin: 0; /* Pastikan tidak ada margin default pada body */
             padding: 0; /* Pastikan tidak ada padding default pada body */
         }
